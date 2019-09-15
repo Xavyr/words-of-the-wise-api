@@ -4,6 +4,10 @@
 
 runtime: nodejs
 env: flex
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+timeout: "1600s"
 resources:
   cpu: 1
   memory_gb: 0.5
