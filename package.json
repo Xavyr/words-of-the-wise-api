@@ -7,7 +7,7 @@
   "engines": {
     "node": ">=8"
   },
-  "repository": "https://github.com/GoogleCloudPlatform/nodejs-getting-started",
+  "repository": "https://github.com/Xavyr/words-of-the-wise-api",
   "main": "app.js",
   "private": true,
   "cloud-repo-tools": {
