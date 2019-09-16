@@ -2,7 +2,7 @@
 
 # see https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml for more info
 
-runtime: nodejs10
+# runtime: nodejs10
 steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
