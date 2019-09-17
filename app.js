@@ -35,8 +35,6 @@ const server = new ApolloServer({
   })
 });
 
-server.json({ hmm: "xavyr" });
-
-server.listen().then(({ url }) => {
+server.listen({ port: 4000 }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
