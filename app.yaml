@@ -1,7 +1,7 @@
 runtime: nodejs10
 instance_class: F2
 env_variables:
-  BUCKET_NAME: "savvy-mantis-253123"
+  GAE_APPLICATION: "savvy-mantis-253123"
 handlers:
   - url: /stylesheets
     static_dir: stylesheets
