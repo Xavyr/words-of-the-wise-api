@@ -35,8 +35,8 @@ const server = new ApolloServer({
   })
 });
 
+server.json({ hmm: "xavyr" });
+
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
-
-server.json({ hmm: "xavyr" });
