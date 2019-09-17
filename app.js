@@ -7,7 +7,7 @@ app.use(cors());
 // [START hello_world]
 // Say hello!
 app.get("/", (req, res) => {
-  res.status(200).json({ message: " Xavyr" });
+  res.status(200).json({ message: "we did it" });
 });
 // [END hello_world]
 
