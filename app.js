@@ -1,40 +1,9 @@
-const { ApolloServer } = require("apollo-server");
-const { makeExecutableSchema } = require("graphql-tools");
+//
 
-const typeDefs = require("./schema");
-const resolvers = require("./resolvers");
-const isEmail = require("isemail");
+const express = require("express");
+const app = express();
+const port = 3000;
 
-const { createMockData } = require("./utils");
-const mockData = createMockData();
+app.get("/", (req, res) => res.send("Hello World!"));
 
-const ToolsOfTitansApi = require("./datasources/ToolsOfTitansDataSourceApi");
-
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-
-const server = new ApolloServer({
-  context: async ({ req }) => {
-    // simple auth check on every request
-    const auth = (req.headers && req.headers.authorization) || "";
-    const email = Buffer.from(auth, "base64").toString("ascii");
-
-    // if the email isn't formatted validly, return null for user
-    if (!isEmail.validate(email)) return { user: null };
-    // find a user by their email
-    const users = await store.users.findOrCreate({ where: { email } });
-    const user = users && users[0] ? users[0] : null;
-
-    return { user: { ...user.dataValues } };
-  },
-  schema,
-  engine: {
-    apiKey: "service:Xavyr-8722:bwDuyeolwk1kyHt37uHXlw"
-  },
-  dataSources: () => ({
-    toolsOfTitansAPI: new ToolsOfTitansApi({ mockData })
-  })
-});
-
-server.listen({ port: 4000 }).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
