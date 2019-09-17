@@ -1,9 +1,24 @@
-//
-
+"use strict";
+const cors = require("cors");
 const express = require("express");
 const app = express();
-const port = 3000;
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.use(cors());
+// [START hello_world]
+// Say hello!
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Hello Xavyr" });
+});
+// [END hello_world]
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+if (module === require.main) {
+  // [START server]
+  // Start the server
+  const server = app.listen(process.env.PORT || 8080, () => {
+    const port = server.address().port;
+    console.log(`App listening on port ${port}`);
+  });
+  // [END server]
+}
+
+module.exports = app;
