@@ -5,12 +5,14 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node ./app.js",
-    "gcp-build": "rm -rf ./build; npx babel src --out-dir build; cp ./schema.graphql ./build"
+    "start": "node ./build/index.js",
+    "dev-start": "nodemon --exec babel-node ./src/index.js",
+    "gcp-build": "rm -rf ./build; npx babel src --out-dir build; cp ./src/schema.graphql ./build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.6.0",
     "apollo-datasource": "^0.1.3",
     "apollo-datasource-rest": "^0.1.5",
     "apollo-server": "^2.9.3",
@@ -28,7 +30,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.6.0",
     "apollo": "^2.18.0",
     "apollo-link": "^1.2.3",
