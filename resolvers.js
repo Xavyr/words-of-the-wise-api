@@ -5,6 +5,16 @@ var mongo = require("mongodb");
 module.exports = {
   Query: {
     getTitans: async (parent, args, { dataSources }) => {
+      return [
+        {
+          _id: "5d3dafe61c9d440000651c56",
+          name: "BJ Miller",
+          industry: "Health and Wellness",
+          claimToFame: "Zen Hospice Physician",
+          quotes: ["5d3db2661c9d440000651c5b", "5d3dc4121c9d440000651c5f"],
+          source: "Tools of the Titans"
+        }
+      ];
       return new Promise((resolve, reject) => {
         mongoClient.connect(err => {
           if (err) return console.log("ERROR: ", err);

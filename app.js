@@ -18,10 +18,10 @@ const app = express();
 // Add Middleware to our Express server
 app.use(cors());
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
+// const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers
+// });
 
 // Create a new apollo server
 const server = new ApolloServer({
@@ -36,7 +36,8 @@ const server = new ApolloServer({
     // const user = users && users[0] ? users[0] : null;
     // return { user: { ...user.dataValues } };
   },
-  schema,
+  typeDefs,
+  resolvers,
   engine: {
     apiKey: "service:Xavyr-8722:bwDuyeolwk1kyHt37uHXlw"
   },
@@ -48,9 +49,9 @@ const server = new ApolloServer({
 });
 
 // Applying middleware to the newly created Apollo Server and specify a queriable path (also where Graphiql will display in browser)
-server.applyMiddleware({ app, path: "/" });
-console.log(server);
+server.applyMiddleware({ app, path: "/graphql" });
+
 // Open up a port and start the server on it
-app.listen({ port: 4000 }, () => {
+app.listen({ port: 8000 }, () => {
   console.log(`🚀 Server is live`);
 });

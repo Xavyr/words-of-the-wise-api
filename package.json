@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node app.js"
+    "start": "node ./app.js",
+    "gcp-build": "rm -rf ./build; npx babel src --out-dir build; cp ./schema.graphql ./build"
   },
   "author": "",
   "license": "ISC",
