@@ -1,24 +1,40 @@
-"use strict";
-const cors = require("cors");
-const express = require("express");
-const app = express();
+const { ApolloServer } = require("apollo-server");
+const { makeExecutableSchema } = require("graphql-tools");
 
-app.use(cors());
-// [START hello_world]
-// Say hello!
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Hello Xavyr" });
+const typeDefs = require("./schema");
+const resolvers = require("./resolvers");
+const isEmail = require("isemail");
+
+const { createMockData } = require("./utils");
+const mockData = createMockData();
+
+const ToolsOfTitansApi = require("./datasources/ToolsOfTitansDataSourceApi");
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const server = new ApolloServer({
+  context: async ({ req }) => {
+    // simple auth check on every request
+    const auth = (req.headers && req.headers.authorization) || "";
+    const email = Buffer.from(auth, "base64").toString("ascii");
+
+    // if the email isn't formatted validly, return null for user
+    if (!isEmail.validate(email)) return { user: null };
+    // find a user by their email
+    const users = await store.users.findOrCreate({ where: { email } });
+    const user = users && users[0] ? users[0] : null;
+
+    return { user: { ...user.dataValues } };
+  },
+  schema,
+  engine: {
+    apiKey: "service:Xavyr-8722:bwDuyeolwk1kyHt37uHXlw"
+  },
+  dataSources: () => ({
+    toolsOfTitansAPI: new ToolsOfTitansApi({ mockData })
+  })
 });
-// [END hello_world]
 
-if (module === require.main) {
-  // [START server]
-  // Start the server
-  const server = app.listen(process.env.PORT || 8080, () => {
-    const port = server.address().port;
-    console.log(`App listening on port ${port}`);
-  });
-  // [END server]
-}
-
-module.exports = app;
+server.listen({ port: 4000 }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
