@@ -15,19 +15,15 @@ module.exports = {
     getTitans: async (parent, args, {
       dataSources
     }) => {
-      console.log("hello");
       return new Promise((resolve, reject) => {
-        console.log("xavyr, you need to check db connection, get that shit back and then make this work locally and then again in deployment ");
-        mongoClient.close(); // mongoClient.connect(err => {
-        //   if (err) return console.log("ERROR: ", err);
-        //   const collection = mongoClient.db("wisdom").collection("titans");
-        //   return collection.find({}).toArray(function(err, results) {
-        //     console.log("yet");
-        //     resolve(results);
-        //     console.log("got here bro");
-        //     mongoClient.close();
-        //   });
-        // });
+        mongoClient.connect(err => {
+          if (err) return console.log("ERROR: ", err);
+          const collection = mongoClient.db("wisdom").collection("titans");
+          return collection.find({}).toArray(function (err, results) {
+            resolve(results);
+            mongoClient.close();
+          });
+        });
       });
     },
     getQuotes: async (parent, args, {
@@ -39,7 +35,7 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("quotes");
           return collection.find({}).toArray(function (err, results) {
             resolve(results);
-            mongoclient.close();
+            mongoClient.close();
           });
         });
       });
@@ -57,7 +53,7 @@ module.exports = {
             _id: titansObjectId
           }, function (err, results) {
             resolve(results);
-            mongoclient.close();
+            mongoClient.close();
           });
         });
       });
@@ -76,7 +72,7 @@ module.exports = {
             titan: titanName
           }).toArray(function (err, results) {
             resolve(results);
-            mongoclient.close();
+            mongoClient.close();
           });
         });
       });
@@ -86,13 +82,11 @@ module.exports = {
     saveTitan: async (parent, args, {
       dataSources
     }) => {
-      console.log("ARGS", args);
       return new Promise((resolve, reject) => {
         mongoClient.connect(err => {
           if (err) return console.log("ERROR: ", err);
           const titanCollection = mongoClient.db("wisdom").collection("titans");
           const quoteDocuments = args.quotes;
-          console.log("HERE", quoteDocuments);
 
           if (quoteDocuments.length === 0) {
             return titanCollection.insertOne(args, function (err, singleTitan) {
@@ -106,7 +100,7 @@ module.exports = {
               args.quotes = insertedIds;
               return titanCollection.insertOne(args, function (err, singleTitan) {
                 resolve(singleTitan.ops[0]);
-                mongoclient.close();
+                mongoClient.close();
               });
             });
           }
