@@ -39,10 +39,10 @@ const server = new _apolloServerExpress.ApolloServer({
 
 server.applyMiddleware({
   app,
-  path: "/graphql"
+  path: "/"
 }); // // // Open up a port and start the server on it
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is live`);
+  console.log(`🚀 Server is live ${PORT}`);
 });

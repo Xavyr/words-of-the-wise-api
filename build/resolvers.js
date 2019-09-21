@@ -15,22 +15,19 @@ module.exports = {
     getTitans: async (parent, args, {
       dataSources
     }) => {
-      return [{
-        _id: "5d3dafe61c9d440000651c56",
-        name: "BJ Miller",
-        industry: "Health and Wellness",
-        claimToFame: "Zen Hospice Physician",
-        quotes: ["5d3db2661c9d440000651c5b", "5d3dc4121c9d440000651c5f"],
-        source: "Tools of the Titans"
-      }];
+      console.log("hello");
       return new Promise((resolve, reject) => {
-        mongoClient.connect(err => {
-          if (err) return console.log("ERROR: ", err);
-          const collection = mongoClient.db("wisdom").collection("titans");
-          return collection.find({}).toArray(function (err, results) {
-            resolve(results);
-          });
-        });
+        console.log("xavyr, you need to check db connection, get that shit back and then make this work locally and then again in deployment ");
+        mongoClient.close(); // mongoClient.connect(err => {
+        //   if (err) return console.log("ERROR: ", err);
+        //   const collection = mongoClient.db("wisdom").collection("titans");
+        //   return collection.find({}).toArray(function(err, results) {
+        //     console.log("yet");
+        //     resolve(results);
+        //     console.log("got here bro");
+        //     mongoClient.close();
+        //   });
+        // });
       });
     },
     getQuotes: async (parent, args, {
@@ -42,6 +39,7 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("quotes");
           return collection.find({}).toArray(function (err, results) {
             resolve(results);
+            mongoclient.close();
           });
         });
       });
@@ -59,6 +57,7 @@ module.exports = {
             _id: titansObjectId
           }, function (err, results) {
             resolve(results);
+            mongoclient.close();
           });
         });
       });
@@ -77,6 +76,7 @@ module.exports = {
             titan: titanName
           }).toArray(function (err, results) {
             resolve(results);
+            mongoclient.close();
           });
         });
       });
@@ -97,6 +97,7 @@ module.exports = {
           if (quoteDocuments.length === 0) {
             return titanCollection.insertOne(args, function (err, singleTitan) {
               resolve(singleTitan.ops[0]);
+              mongoClient.close();
             });
           } else {
             const wisdomCollection = mongoClient.db("wisdom").collection("quotes");
@@ -105,6 +106,7 @@ module.exports = {
               args.quotes = insertedIds;
               return titanCollection.insertOne(args, function (err, singleTitan) {
                 resolve(singleTitan.ops[0]);
+                mongoclient.close();
               });
             });
           }

@@ -34,10 +34,10 @@ const server = new ApolloServer({
 });
 
 // // Applying middleware to the newly created Apollo Server and specify a queriable path (also where Graphiql will display in browser)
-server.applyMiddleware({ app, path: "/graphql" });
+server.applyMiddleware({ app, path: "/" });
 
 // // // Open up a port and start the server on it
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is live`);
+  console.log(`🚀 Server is live ${PORT}`);
 });

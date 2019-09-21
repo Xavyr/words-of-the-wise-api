@@ -11,6 +11,7 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("titans");
           return collection.find({}).toArray(function(err, results) {
             resolve(results);
+            mongoClient.close();
           });
         });
       });
@@ -22,6 +23,7 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("quotes");
           return collection.find({}).toArray(function(err, results) {
             resolve(results);
+            mongoClient.close();
           });
         });
       });
@@ -38,6 +40,7 @@ module.exports = {
             results
           ) {
             resolve(results);
+            mongoClient.close();
           });
         });
       });
@@ -54,6 +57,7 @@ module.exports = {
             .find({ titan: titanName })
             .toArray(function(err, results) {
               resolve(results);
+              mongoClient.close();
             });
         });
       });
@@ -61,16 +65,15 @@ module.exports = {
   },
   Mutation: {
     saveTitan: async (parent, args, { dataSources }) => {
-      console.log("ARGS", args);
       return new Promise((resolve, reject) => {
         mongoClient.connect(err => {
           if (err) return console.log("ERROR: ", err);
           const titanCollection = mongoClient.db("wisdom").collection("titans");
           const quoteDocuments = args.quotes;
-          console.log("HERE", quoteDocuments);
           if (quoteDocuments.length === 0) {
             return titanCollection.insertOne(args, function(err, singleTitan) {
               resolve(singleTitan.ops[0]);
+              mongoClient.close();
             });
           } else {
             const wisdomCollection = mongoClient
@@ -87,6 +90,7 @@ module.exports = {
                 singleTitan
               ) {
                 resolve(singleTitan.ops[0]);
+                mongoClient.close();
               });
             });
           }
