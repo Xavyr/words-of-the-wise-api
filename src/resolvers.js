@@ -11,9 +11,10 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("titans");
           return collection.find({}).toArray(function(err, results) {
             resolve(results);
-            mongoClient.close();
           });
         });
+        console.log("GOT HERE");
+        mongoClient.close();
       });
     },
     getQuotes: async (parent, args, { dataSources }) => {
@@ -23,7 +24,6 @@ module.exports = {
           const collection = mongoClient.db("wisdom").collection("quotes");
           return collection.find({}).toArray(function(err, results) {
             resolve(results);
-            mongoClient.close();
           });
         });
       });
@@ -40,7 +40,6 @@ module.exports = {
             results
           ) {
             resolve(results);
-            mongoClient.close();
           });
         });
       });
@@ -57,7 +56,6 @@ module.exports = {
             .find({ titan: titanName })
             .toArray(function(err, results) {
               resolve(results);
-              mongoClient.close();
             });
         });
       });
@@ -73,7 +71,6 @@ module.exports = {
           if (quoteDocuments.length === 0) {
             return titanCollection.insertOne(args, function(err, singleTitan) {
               resolve(singleTitan.ops[0]);
-              mongoClient.close();
             });
           } else {
             const wisdomCollection = mongoClient
@@ -90,7 +87,6 @@ module.exports = {
                 singleTitan
               ) {
                 resolve(singleTitan.ops[0]);
-                mongoClient.close();
               });
             });
           }
