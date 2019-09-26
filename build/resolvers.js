@@ -20,11 +20,10 @@ module.exports = {
           if (err) return console.log("ERROR: ", err);
           const collection = mongoClient.db("wisdom").collection("titans");
           return collection.find({}).toArray(function (err, results) {
+            console.log("RESULTS", results);
             resolve(results);
           });
         });
-        console.log("GOT HERE");
-        mongoClient.close();
       });
     },
     getQuotes: async (parent, args, {
