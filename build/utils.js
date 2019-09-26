@@ -2,13 +2,33 @@
 
 const SQL = require("sequelize");
 
-const MongoClient = require("mongodb").MongoClient;
+const MongoClient = require("mongodb");
 
 const uri = "mongodb+srv://xavyr:CzCGXW6iWv7XaPq2@cluster0-lbokj.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
-  useNewUrlParser: true
-});
-module.exports.mongoClient = client; // EXAMPLE: MOCK DATA
+
+const connectDb = async () => {
+  const db = await MongoClient.connect(uri);
+
+  if (!db) {
+    console.log("Database connection erred");
+  }
+
+  const titans = db.db("wisdom").collection("titans");
+  const quotes = db.db("widsom").collection("quotes");
+  return {
+    titans,
+    quotes
+  };
+};
+
+const collections = connectDb();
+module.exports.dbCollections = collections; // module.exports.mongoClient = MongoClient.connect(uri).then(client => {
+//   cachedDb = client.db("wisdom");
+//   console.log("HEY", cachedDb.serverConfig.isConnected());
+//   return Promise.resolve(cachedDb);
+// });
+//module.exports.mongoClient = client;
+// EXAMPLE: MOCK DATA
 
 module.exports.createMockData = () => {
   return {
