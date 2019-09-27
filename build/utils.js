@@ -21,7 +21,7 @@ const connectDb = async () => {
   }
 
   const titans = databases.db("wisdom").collection("titans");
-  const quotes = databases.db("widsom").collection("quotes");
+  const quotes = databases.db("wisdom").collection("quotes");
   return {
     titans,
     quotes
