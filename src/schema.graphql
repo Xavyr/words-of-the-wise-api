@@ -25,7 +25,6 @@ type Query {
   getTitans: [Titan]
   getQuotes: [Quote]
   getSingleTitanById(id: String!): Titan
-  Quote: Quote
 }
 
 type Mutation {

@@ -1,20 +1,27 @@
 "use strict";
 
-const SQL = require("sequelize");
-
+// __  __                           _____        _        _                       _____                            _   _
+// |  \/  |                         |  __ \      | |      | |                     / ____|                          | | (_)
+// | \  / | ___  _ __   __ _  ___   | |  | | __ _| |_ __ _| |__   __ _ ___  ___  | |     ___  _ __  _ __   ___  ___| |_ _  ___  _ __
+// | |\/| |/ _ \| '_ \ / _` |/ _ \  | |  | |/ _` | __/ _` | '_ \ / _` / __|/ _ \ | |    / _ \| '_ \| '_ \ / _ \/ __| __| |/ _ \| '_ \
+// | |  | | (_) | | | | (_| | (_) | | |__| | (_| | || (_| | |_) | (_| \__ \  __/ | |___| (_) | | | | | | |  __/ (__| |_| | (_) | | | |
+// |_|  |_|\___/|_| |_|\__, |\___/  |_____/ \__,_|\__\__,_|_.__/ \__,_|___/\___|  \_____\___/|_| |_|_| |_|\___|\___|\__|_|\___/|_| |_|
+//                      __/ |
+//                     |___/
 const MongoClient = require("mongodb");
 
 const uri = "mongodb+srv://xavyr:CzCGXW6iWv7XaPq2@cluster0-lbokj.mongodb.net/test?retryWrites=true&w=majority";
 
 const connectDb = async () => {
-  const db = await MongoClient.connect(uri);
+  const databases = await MongoClient.connect(uri);
 
-  if (!db) {
+  if (!databases) {
     console.log("Database connection erred");
+    return null;
   }
 
-  const titans = db.db("wisdom").collection("titans");
-  const quotes = db.db("widsom").collection("quotes");
+  const titans = databases.db("wisdom").collection("titans");
+  const quotes = databases.db("widsom").collection("quotes");
   return {
     titans,
     quotes
@@ -22,13 +29,12 @@ const connectDb = async () => {
 };
 
 const collections = connectDb();
-module.exports.dbCollections = collections; // module.exports.mongoClient = MongoClient.connect(uri).then(client => {
-//   cachedDb = client.db("wisdom");
-//   console.log("HEY", cachedDb.serverConfig.isConnected());
-//   return Promise.resolve(cachedDb);
-// });
-//module.exports.mongoClient = client;
-// EXAMPLE: MOCK DATA
+module.exports.dbCollections = collections; // __  __            _       _____          _
+// |  \/  |          | |     / ____|        | |
+// | \  / | ___   ___| | __ | |     ___   __| | ___
+// | |\/| |/ _ \ / __| |/ / | |    / _ \ / _` |/ _ \
+// | |  | | (_) | (__|   <  | |___| (_) | (_| |  __/
+// |_|  |_|\___/ \___|_|\_\  \_____\___/ \__,_|\___|
 
 module.exports.createMockData = () => {
   return {
