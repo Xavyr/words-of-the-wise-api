@@ -12,6 +12,44 @@ input QuoteInput {
   message: String
 }
 
+type Practice {
+  _id: String
+  titan: String
+  practice: String
+  description: String
+  frequency: String
+}
+input PracticeInput {
+  _id: String
+  titan: String
+  practice: String
+  description: String
+  frequency: String
+}
+
+type Paradigm {
+  _id: String
+  titan: String
+  belief: String
+  background: String
+}
+
+type Inspirational {
+  _id: String
+  titan: String
+  source: String
+  story: String
+}
+
+type Routine {
+  _id: String
+  titan: String
+  where: String
+  when: String
+  what: String
+  benefits: String
+}
+
 type Titan {
   _id: String
   name: String
@@ -19,11 +57,16 @@ type Titan {
   claimToFame: String
   source: String
   quotes: [Quote]
+  practices: [Practice]
+  # paradigms: [Paradigm]
+  #inspirationals: [Inspirational]
+  #routines: [Routine]
 }
 
 type Query {
   getTitans: [Titan]
   getQuotes: [Quote]
+  getPractices: [Practice]
   getSingleTitanById(id: String!): Titan
 }
 
@@ -35,5 +78,9 @@ type Mutation {
     claimToFame: String
     source: String
     quotes: [QuoteInput]
+    practices: [PracticeInput]
   ): Titan
+  deleteAllTitans: Titan
+  deleteAllQuotes: Quote
+  deleteAllPractices: Practice
 }

@@ -22,9 +22,11 @@ const connectDb = async () => {
 
   const titans = databases.db("wisdom").collection("titans");
   const quotes = databases.db("wisdom").collection("quotes");
+  const practices = databases.db("wisdom").collection("practices");
   return {
     titans,
-    quotes
+    quotes,
+    practices
   };
 };
 

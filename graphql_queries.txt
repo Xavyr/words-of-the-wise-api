@@ -1,0 +1,60 @@
+# Write your query or mutation here
+query getAllTitans {
+  getTitans {
+    _id
+    name
+    industry
+    claimToFame
+    quotes {
+      _id
+      titan
+      message
+      hashtags
+    }
+    practices {
+      _id
+      titan
+      practice
+      frequency
+      description
+    }
+    source
+  }
+}
+
+query getAllQuotes {
+  getQuotes {
+    _id
+    titan
+    message
+    hashtags
+  }
+}
+
+query getAllPractices {
+  getPractices {
+    _id
+    titan
+    practice
+    frequency
+    description
+  }
+}
+
+mutation deleteAllTitans {
+  deleteAllTitans{
+    _id
+  }
+}
+
+mutation deleteAllQuotes {
+  deleteAllQuotes{
+    _id
+  }
+}
+
+mutation deleteAllPractices {
+  deleteAllPractices {
+    _id
+  }
+}
