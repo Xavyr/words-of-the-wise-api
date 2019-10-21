@@ -18,6 +18,23 @@ query getAllTitans {
       frequency
       description
     }
+    paradigms {
+      _id
+      titan
+      background
+      paradigm
+    }
+    routines {
+      _id
+      what
+      when
+      where
+      benefits
+    }
+    inspirationals {
+      story
+      source
+    }
     source
   }
 }
@@ -55,6 +72,24 @@ mutation deleteAllQuotes {
 
 mutation deleteAllPractices {
   deleteAllPractices {
+    _id
+  }
+}
+
+mutation deleteAllRoutines {
+  deleteAllRoutines {
+    _id
+  }
+}
+
+mutation deleteAllInspirationals {
+  deleteAllInspirationals {
+    _id
+  }
+}
+
+mutation deleteAllParadigms {
+  deleteAllParadigms {
     _id
   }
 }

@@ -64,6 +64,7 @@ type Routine {
 input RoutineInput {
   _id: String
   titan: String
+  routine: String
   where: String
   what: String
   when: String
@@ -80,7 +81,7 @@ type Titan {
   practices: [Practice]
   paradigms: [Paradigm]
   inspirationals: [Inspirational]
-  # routines: [Routine]
+  routines: [Routine]
 }
 
 type Query {
@@ -109,4 +110,5 @@ type Mutation {
   deleteAllPractices: Practice
   deleteAllParadigms: Paradigm
   deleteAllInspirationals: Inspirational
+  deleteAllRoutines: Routine
 }

@@ -229,6 +229,17 @@ module.exports = {
           resolve(success.deletedCount);
         });
       });
+    },
+    deleteAllRoutines: async (parent, args, {
+      dataSources
+    }) => {
+      const collections = await dbCollections;
+      return new Promise((resolve, reject) => {
+        return collections.routines.deleteMany({}, (err, success) => {
+          console.log("Deleted All Routines", success.deletedCount);
+          resolve(success.deletedCount);
+        });
+      });
     }
   }
 };
@@ -278,7 +289,7 @@ const saveInpirationals = (inspirationalDocuments, inspirationalCollection) => {
 const saveRoutines = (routineDocuments, routineCollection) => {
   if (routineDocuments.length === 0) return null;
   return new Promise((resolve, reject) => {
-    console.log("Inspirationals", routineDocuments);
+    console.log("routines", routineDocuments);
     routineCollection.insertMany(routineDocuments, function (err, routinesInserted) {
       const insertedIds = Object.values(routinesInserted.insertedIds);
       return resolve(insertedIds);

@@ -204,6 +204,15 @@ module.exports = {
           resolve(success.deletedCount);
         });
       });
+    },
+    deleteAllRoutines: async (parent, args, { dataSources }) => {
+      const collections = await dbCollections;
+      return new Promise((resolve, reject) => {
+        return collections.routines.deleteMany({}, (err, success) => {
+          console.log("Deleted All Routines", success.deletedCount);
+          resolve(success.deletedCount);
+        });
+      });
     }
   }
 };
