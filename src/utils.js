@@ -20,11 +20,17 @@ const connectDb = async () => {
   const titans = databases.db("wisdom").collection("titans");
   const quotes = databases.db("wisdom").collection("quotes");
   const practices = databases.db("wisdom").collection("practices");
+  const paradigms = databases.db("wisdom").collection("paradigms");
+  const inspirationals = databases.db("wisdom").collection("inspirationals");
+  const routines = databases.db("wisdom").collection("routines");
 
   return {
     titans,
     quotes,
-    practices
+    practices,
+    paradigms,
+    inspirationals,
+    routines
   };
 };
 
