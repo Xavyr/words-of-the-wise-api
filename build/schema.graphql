@@ -57,6 +57,7 @@ type Routine {
   _id: String
   titan: String
   where: String
+  what: String
   when: String
   benefits: String
 }
@@ -65,6 +66,7 @@ input RoutineInput {
   titan: String
   routine: String
   where: String
+  what: String
   when: String
   benefits: String
 }
